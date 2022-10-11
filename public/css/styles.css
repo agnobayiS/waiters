@@ -1,0 +1,133 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    background-color: #ceb974;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+nav {
+    border-collapse: collapse;
+    background-color: lightblue;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.09);
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+}
+
+.nav-link:hover {
+    background-color: rgb(142, 139, 163);
+}
+
+.nav-link {
+    color: black;
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 10px;
+    transition: 0.2s ease-out;
+}
+
+.title {
+    font-size: 100px;
+    font-family: 'Tangerine', cursive;
+    text-align: center;
+}
+.secondBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title2 {
+    padding-top: 100px;
+    font-size: 100px;
+    font-family: 'IBM Plex Serif', serif;
+    font-family: 'Tangerine', cursive;
+}
+
+.texInput {
+    justify-items: center;
+    align-items: center;
+}
+
+.names {
+    border-radius: 25px;
+    border: 2px solid #609;
+    padding: 20px;
+    width: 200px;
+    height: 10px;
+    font-size: xx-large;
+}
+
+.names:hover {
+    background-color: rgb(195, 175, 206);
+    color: white;
+}
+
+.btn {
+
+    border-radius: 25px;
+    border: 2px solid rgb(46, 235, 241);
+    padding: 20px;
+    padding-bottom: 10px;
+    width: 200px;
+    /* height: 20px; */
+    background-color: lightblue;
+    transition-duration: 0.4s;
+    font-size: larger;
+}
+.btn2{
+    
+    border-radius: 25px;
+    border: 2px solid rgb(241, 118, 46);
+    padding: 20px;
+    padding-bottom: 10px;
+    width: 200px;
+    background-color: rgb(50, 170, 60);
+    transition-duration: 0.4s;
+    font-size: larger;
+}
+.btn2:hover {
+    background-color: rgb(114, 230, 214);
+    color: red;
+}
+
+.btn:hover {
+    background-color: rgb(114, 230, 214);
+    color: red;
+}
+
+.checkboxDiv {
+    padding-top: 100px;
+}
+
+input[type="checkbox"]:focus {
+    outline: max(2px, 0.15em) solid currentColor;
+    outline-offset: max(2px, 0.15em);
+}
+input.box {
+    width : 25px;
+    height :25px;
+}
+.checkBoxLabel{
+    font-size: 25px;
+}
+.box{
+    padding-left: 25px;
+}
+.massage{
+    height: 25px;
+}

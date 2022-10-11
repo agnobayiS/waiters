@@ -1,0 +1,90 @@
+<body>
+    <div class="header">
+        <nav id="nav-bar">
+            {{!-- <button class="nav-link"></button> --}}
+            <a href="/" class="nav-link">HOME</a>
+        </nav>
+    </div>
+
+    <br><br>
+    <div class="center" style="font-size:40px ;">Please select your working days</div>
+    <br><br>
+
+    {{#if messages.info}}
+    <div style="height:30px ;" class="massages">
+        <h3 style="color:green; font-size:15px " class="massages">{{messages.info}}</h3>
+    </div>{{/if}}
+
+
+    <form action="/selectDays/{{name}}" method="post">
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-12 checkboxDiv">
+
+
+                    <label>
+                        <input type="checkbox" class="filled-in" name="selectDays" value="Monday"/>
+                        <span style="padding-right: 20px;">Monday</span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="filled-in" name="selectDays" value="Tuesday" />
+                        <span style="padding-right: 20px;">Tuesday</span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="filled-in" name="selectDays" value="Wednesday" />
+                        <span style="padding-right: 20px;">Wednesday</span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="filled-in" name="selectDays" value="Thursday" />
+                        <span style="padding-right: 20px;">Thursday</span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="filled-in" name="selectDays" value="Friday" />
+                        <span style="padding-right: 20px;">Friday</span>
+                    </label>
+
+
+                    <label>
+                        <input type="checkbox" class="filled-in" name="selectDays" value="Saterday" />
+                        <span style="padding-right: 20px;">Saterday</span>
+                    </label>
+
+
+                    <label>
+                        <input type="checkbox" class="filled-in" name="monday" value="Sunday" />
+                        <span style="padding-right: 20px;">Sunday</span>
+                    </label>
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <br><br>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-12 secongBTN">
+                    <button type="" class="btn" value="SUBMIT">SUBMIT</button>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </form>
+
+
+    <script src="/timeout.js"></script>
+
+</body>
