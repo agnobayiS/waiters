@@ -6,6 +6,7 @@ const session = require('express-session');
 const waiters = require('./waitersDB');
 const routes = require('./routs/waters-routs')
 const { default: ShortUniqueId } = require('short-unique-id');
+const { as } = require('pg-promise');
 
 const pgp = require('pg-promise')();
 
@@ -130,20 +131,30 @@ app.get('/days/:name', async function (req, res) {
     })
 })
 
-app.post('/selectDays/:name',async function(req,res){
- 
-    let checkbox = req.body.selectDays
+app.post('/selectDays/:name', async function (req, res) {
 
+    let checkbox = req.body.selectDays
+    let user_name = req.params.name
+    console.log(checkbox, user_name);
+    await waitersFF.addDays(checkbox, user_name)
 
     req.flash('info', 'your days have been booked');
 
-    res.render('days',{
+    res.render('days', {
 
     })
 
 })
 
 
+app.get('/admin', async function (req, res) {
+
+    let data = await waitersFF.getAdmin();
+    // console.log(data);
+    res.render('admin', {
+        data
+    })
+})
 
 
 

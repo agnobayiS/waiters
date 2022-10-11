@@ -16,23 +16,18 @@
             <div>
                 <div class="table ">
 
+                        {{#each data}}
                     <table>
                         <tr>
-                            <th>Monday</th>
-                            <th>Tuesday</th>
-                            <th>Wednesday</th>
-                            <th>Thursday</th>
-                            <th>Friday</th>
-                            <th>Saterday</th>
-                            <th>Sunday</th>
-                        </tr>
-                        {{#each data}}
-                        <tr>
-                            <td>{{this.names}}</td>
+                            <th>{{this.day}}</th>
 
                         </tr>
-                        {{/each}}
+                        <tr>
+                            <td style="color: white ;">{{this.waiter}}</td>
+
+                        </tr>
                     </table>
+                        {{/each}}
 
 
                 </div>

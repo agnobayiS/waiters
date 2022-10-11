@@ -45,6 +45,38 @@ module.exports = function waiters(db){
         return user
     }
 
+    async function addDays (days, name) {
+        let checkDays = Array.isArray(days) ? days : [days]
+        let user = name.toUpperCase();
+        let getNameId =  await db.one('select id from waiter_names where names = $1', [user]);
+        for (let i = 0; i < checkDays.length; i++) {
+            const element = checkDays[i].toUpperCase();
+            // console.log(element);
+            let day_id = await db.one('select id from  weekdays where day = $1', [element])
+            await db.none(`insert into tablereff (names_id, day_id) values($1, $2) `, [getNameId.id, day_id.id])
+        }
+    }
+
+    async function getAdmin () {
+
+        let data = await db.many('select names, day from tablereff join waiter_names on waiter_names.id = tablereff.names_id join weekdays on weekdays.id = tablereff.day_id') ;
+        let days = await db.many('select day from weekdays')
+        for (var day of days) {
+            for (let i = 0; i < data.length; i++) {
+                const element = data[i];
+               
+                if (day.day === element.day) {
+                    console.log("match")
+                    day.waiter = element.names
+                }
+                
+            }
+            // console.log(day);
+        }
+        console.log(days);
+        return days
+    }
+
 
 
  
@@ -57,7 +89,9 @@ module.exports = function waiters(db){
         create_user,
         checkUser,
         checkcode,
-        getuser
+        getuser,
+        addDays,
+        getAdmin
 
     }
 }
