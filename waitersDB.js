@@ -48,10 +48,10 @@ module.exports = function waiters(db){
     async function addDays (days, name) {
         let checkDays = Array.isArray(days) ? days : [days]
         let user = name.toUpperCase();
-        let getNameId =  await db.one('select id from waiter_names where names = $1', [user]);
+        let getNameId =  await db.oneOrNone('select id from waiter_names where names = $1', [user]);
+
         for (let i = 0; i < checkDays.length; i++) {
             const element = checkDays[i].toUpperCase();
-            // console.log(element);
             let day_id = await db.one('select id from  weekdays where day = $1', [element])
             await db.none(`insert into tablereff (names_id, day_id) values($1, $2) `, [getNameId.id, day_id.id])
         }
@@ -71,7 +71,7 @@ module.exports = function waiters(db){
                 }
                 
             }
-            // console.log(day);
+            
         }
         console.log(days);
         return days

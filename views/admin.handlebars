@@ -13,21 +13,20 @@
 
         </div>
         <div class="containe">
-            <div>
+            <div class="row">
                 <div class="table ">
 
                         {{#each data}}
                     <table>
                         <tr>
                             <th>{{this.day}}</th>
-
                         </tr>
                         <tr>
-                            <td style="color: white ;">{{this.waiter}}</td>
-
+                            <td style="color: white ;"><a href="./days/:name">{{this.waiter}}</a></td>
                         </tr>
                     </table>
-                        {{/each}}
+                         {{/each}}   
+                        
 
 
                 </div>

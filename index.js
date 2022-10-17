@@ -140,9 +140,7 @@ app.post('/selectDays/:name', async function (req, res) {
 
     req.flash('info', 'your days have been booked');
 
-    res.render('days', {
-
-    })
+    res.redirect('back')
 
 })
 
