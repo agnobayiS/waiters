@@ -115,19 +115,22 @@ app.post('/adduser', async function (req, res) {
     res.render('signup')
 })
 
-app.get('/adduser/:name', async function (req, res) {
-    res.render('days', {
-    })
+// app.get('/adduser/:name', async function (req, res) {
+//     res.render('days', {
+//     })
 
-})
+// })
 
 app.get('/days/:name', async function (req, res) {
 
     let name = req.params.name
-
+   name = name.toUpperCase();
+    console.log(name + "----");
+  let days =  await waitersFF.checkDays(name)
 
     res.render('days', {
-        name
+        name,
+        days
     })
 })
 
@@ -191,7 +194,7 @@ app.get('/waiters/:username', function (req, res) {
 
 
 
-const PORT = process.env.PORT || 3036;
+const PORT = process.env.PORT || 3038;
 
 app.listen(PORT, function () {
     console.log("App started at port:", PORT)

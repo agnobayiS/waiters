@@ -14,19 +14,50 @@
         </div>
         <div class="containe">
             <div class="row">
-                <div class="table ">
+                <div class="highlight">
 
-                        {{#each data}}
-                    <table>
-                        <tr>
-                            <th>{{this.day}}</th>
-                        </tr>
+                    {{!-- {{#each data}} --}}
+                    {{!-- <table>
+                        <tr> --}}
+                            {{!-- <th>{{this.day}}</th> --}}
+
+                            {{!-- </tr>
                         <tr>
                             <td style="color: white ;"><a href="./days/:name">{{this.waiter}}</a></td>
                         </tr>
+                    </table> --}}
+                    {{!-- {{/each}} --}}
+
+
+                    <table>
+                        <thead>
+                            <tr>
+                                {{#each data}}
+                                <th>{{day}}</th>
+                                {{/each}}
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                            {{#each data}}
+
+                                <td>
+                            {{#each waiter}}
+
+                                    <li>{{this}}</li>
+                        {{/each}}
+                                </td>
+                        {{/each}}
+                            </tr>
+
+                        </tbody>
+
                     </table>
-                         {{/each}}   
-                        
+
+
+
 
 
                 </div>
@@ -34,10 +65,10 @@
             </div>
         </div>
     </form>
-    {{#each data}}
+    {{!-- {{#each data}} --}}
 
     <form action="/resert/{{this.names_id}}" method="get">
-        {{/each}}
+        {{!-- {{/each}} --}}
 
         <div style="padding-top: 40px ;">
             <button class="btn" type="resert">RESERT DATA</button>
