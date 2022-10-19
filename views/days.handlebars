@@ -1,6 +1,6 @@
-<body>
+<body style="background-color:#d67f7f ;">
     <div class="header">
-        <nav id="nav-bar">
+        <nav class="nav-bar">
             {{!-- <button class="nav-link"></button> --}}
             <a href="/" class="nav-link">HOME</a>
         </nav>
@@ -11,10 +11,10 @@
     <br><br>
 
     {{#if messages.info}}
-    <div style="height:30px ;" class="massages">
-        <h3 style="color:green; font-size:15px " class="massages">{{messages.info}}</h3>
+    <div style="height:30px ;  " class="massages" s>
+        <p style="color:green; font-size:25px; padding-left:35%; "  class="massages">{{messages.info}}</p>
     </div>{{/if}}
-
+    <br><br><br><br>
 
     <form action="/selectDays/{{name}}" method="post">
 
@@ -26,7 +26,7 @@
 
                     <label>
                         <input type="checkbox" class="filled-in" name="selectDays" value={{this.day}} {{checked}} />
-                        <span style="padding-right: 20px;">{{this.day}}</span>
+                        <span style="padding-right: 10px; color:black;  "> {{this.day}} </span>
                     </label>
                     {{/each}}
                     {{!-- <label>

@@ -79,6 +79,7 @@ app.post('/login', async function (req, res) {
     let validate = await waitersFF.checkcode(code)
     let validate2 = await waitersFF.checkUser(user)
 
+    console.log({validate,validate2 });
     if (validate && validate2) {
 
         req.flash('erro', 'Please enter valid details');
