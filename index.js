@@ -160,15 +160,6 @@ app.get('/admin', async function (req, res) {
 
 
 
-
-
-
-
-
-
-
-
-
 app.post('/addExpence/:name', async function (req, res) {
     const amount = req.body.amount
     const type = req.body.group1
@@ -189,6 +180,15 @@ app.post('/addExpence/:name', async function (req, res) {
 app.get('/waiters/:username', function (req, res) {
 
 
+
+})
+
+app.get('/clear',async function (req,res){
+
+    await waitersFF.clearAllData()
+    req.flash('erro', 'All booked waters have been cleard');
+
+    res.redirect('back')
 
 })
 

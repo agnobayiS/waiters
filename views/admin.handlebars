@@ -1,45 +1,50 @@
-<body style="background-color:#d67f7f ;">
+<body style="background-color:#ec9e9e ;">
 
+    <div style="padding-top:200px;"></div>
 
-    <form action="/admin" method="get" >
+    <form action="/admin" method="get">
 
         <div class="containe">
 
             {{#if messages.erro}}
             <div style="height:30px ;" class="massages">
-                <h3 style="color:red; font-size:15px " class="massages">{{messages.erro}}</h3>
+                <p style="color:red; font-size:30px " class="massages">{{messages.erro}}</p>
             </div>{{/if}}
 
 
         </div>
-        <div class="containe" >
+
+        <br><br>
+        <div class="containe">
             <div class="row">
                 <div class="highlight">
 
-                
+
 
 
                     <table>
                         <thead>
                             <tr>
                                 {{#each data}}
-                                <th>{{day}}</th>
-                                {{/each}}
+                                <th>{{work_day}}</th>
 
+                                {{/each}}
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr>
-                            {{#each data}}
+                                {{#each data}}
 
-                                <td>
-                            {{#each waiter}}
+                                <td  >
+                                    <ul>
+                                        {{#each this.waiter}}
+                                       <a href="/days/{{this}}" ><p style="align-content: flex-start;">{{this}}</p></a> 
+                                        {{/each}}
+                                    </ul>
 
-                                    <li>{{this}}</li>
-                        {{/each}}
                                 </td>
-                        {{/each}}
+                                {{/each}}
                             </tr>
 
                         </tbody>
@@ -55,14 +60,12 @@
             </div>
         </div>
     </form>
-    {{!-- {{#each data}} --}}
 
-    <form action="/resert/{{this.names_id}}" method="get">
-        {{!-- {{/each}} --}}
 
-        <div style="padding-top: 40px ;">
-            <button class="btn" type="resert">RESERT DATA</button>
-        </div>
-    </form>
+    <div style="padding-top: 40px ;">
+        <a href="/clear"><button class="btn" type="resert">RESERT DATA</button></a>
+    </div>
+
+
 
 </body>

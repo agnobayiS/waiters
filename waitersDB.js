@@ -34,11 +34,13 @@ module.exports = function waiters(db) {
 
         return user.length == 0 ? true : false;
     }
+
     async function checkcode(code) {
         let user = await db.any('select USER_CODE from WAITER_NAMES where USER_CODE = $1', [code])
 
         return user.length == 0 ? true : false;
     }
+
     async function getuser(name) {
 
         let user = await db.manyOrNone('select * from WAITER_NAMES where names = $1', [name])
@@ -50,7 +52,7 @@ module.exports = function waiters(db) {
         let user = name.toUpperCase();
         let getNameId = await db.oneOrNone('select id from waiter_names where names = $1', [user]);
 
-        await db.none('delete from tablereff where NAMES_ID = $1 ',[getNameId.id])
+        await db.none('delete from tablereff where NAMES_ID = $1 ', [getNameId.id])
         for (let i = 0; i < checkDays.length; i++) {
             const element = checkDays[i].toUpperCase();
             console.log(element);
@@ -65,21 +67,30 @@ module.exports = function waiters(db) {
         let days = await db.manyOrNone('select day from weekdays')
         var waiters = []
 
+
         for (var day of days) {
-            for (let i = 0; i < data.length; i++) {
-                const element = data[i];
-
-                if (day.day === element.day) {
-                    console.log(element)
-                    waiters.push(element.names)
-                    day.waiter = waiters;
-                }
-
+            let shift = {
+                work_day: day.day,
+                waiter: []
             }
-
+            waiters.push(shift)
         }
-        console.log(days);
-        return days
+
+        for (const days of waiters) {
+        
+            for (const working of data) {
+
+                if (days.work_day === working.day) {
+                
+                    days.waiter.push(working.names)
+                }
+                
+            }
+        }
+        console.log(waiters);
+
+       
+        return waiters
     }
 
 
@@ -90,6 +101,8 @@ module.exports = function waiters(db) {
              join WAITER_NAMES on waiter_names.id=tablereff.names_id
              join weekdays on weekdays.id = tablereff.day_id
              where names = $1`, [waiter]);
+
+
         for (const weekDay of days) {
             for (let i = 0; i < data.length; i++) {
                 const element = data[i];
@@ -103,6 +116,14 @@ module.exports = function waiters(db) {
         return days
     }
 
+    async function clearAllData() {
+
+        let clear = await db.none('delete from tablereff;')
+
+        return clear
+
+    }
+
 
 
 
@@ -114,7 +135,8 @@ module.exports = function waiters(db) {
         getuser,
         addDays,
         getAdmin,
-        checkDays
+        checkDays,
+        clearAllData
 
     }
 }
