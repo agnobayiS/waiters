@@ -1,5 +1,8 @@
 module.exports = function waiters(waiterRouts) {
 
+    const { default: ShortUniqueId } = require('short-unique-id');
+    const uid = new ShortUniqueId({ length: 6 });
+
     async function home(req, res) {
 
         res.render("login", {
@@ -52,6 +55,11 @@ module.exports = function waiters(waiterRouts) {
         res.render('signup')
 
     }
+    async function user(req,res){
+        res.render('signup',{
+
+        })
+    }
 
     async function days (req, res) {
 
@@ -102,7 +110,8 @@ module.exports = function waiters(waiterRouts) {
         days,
         selectDays,
         deleted,
-        admin
+        admin,
+        user
     }
 
 }

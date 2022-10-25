@@ -68,6 +68,7 @@ app.get('/', waiterRouts.home);
 app.post('/login', waiterRouts.login);
 
 app.post('/adduser',waiterRouts.adduser); 
+app.get('/adduser',waiterRouts.user);
 
 app.get('/days/:name', waiterRouts.days);
 
