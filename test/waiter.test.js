@@ -19,6 +19,7 @@ describe("waiters database test", async function () {
     beforeEach(async function () {
         
         await db.none('delete from tablereff');
+        await db.none('delete from waiter_names ');
     });
 
 
@@ -46,30 +47,40 @@ describe("waiters database test", async function () {
     it("should be able to check if the user dose not have an account", async function () {
         let waiters_data = waiter(db)
 
-        await waiters_data.checkUser("thole")
-        let find_user = await waiters_data.checkUser("thole")
+        await waiters_data.create_user("siyabonga","mpani","therealsiya@gmail.com",code)
+
+        let find_user = await waiters_data.checkUser("siyabonga")
     
         assert.equal(true, find_user)
     })
     it("should be able to check if the usercode is not valid", async function () {
         let waiters_data = waiter(db)
+        const uid = new ShortUniqueId({ length: 6 });
+        code = uid();
 
-        await waiters_data.checkcode("Xxa1mY")
-        let find_user = await waiters_data.checkcode("Xxa1mY")
+        let find_user = await waiters_data.checkcode(code)
     
-        assert.equal(false, find_user)
+        assert.equal(true, find_user)
     })
     it("should be able to check if the usercode is valid", async function () {
         let waiters_data = waiter(db)
 
-        await waiters_data.checkcode("BgoGSZ")
-        let find_user = await waiters_data.checkcode("BgoGSZ")
+        const uid = new ShortUniqueId({ length: 6 });
+        code = uid();
+
+        await waiters_data.checkcode(code)
+        let find_user = await waiters_data.checkcode(code)
     
         assert.equal(true, find_user)
     })
 
     it("should be able to add days if the user has an account", async function () {
         let waiters_data = waiter(db)
+
+        const uid = new ShortUniqueId({ length: 6 });
+        code = uid();
+
+        await waiters_data.create_user("SIYABONGA", "mpani", "therealsiya@gmail.com", code)
 
         await waiters_data.addDays("TUESDAY","SIYABONGA")
         let find_user = await waiters_data.getAdmin()
@@ -86,11 +97,25 @@ describe("waiters database test", async function () {
     })
     it("should be clear all data if resert is pressed", async function () {
         let waiters_data = waiter(db)
+        const uid = new ShortUniqueId({ length: 6 });
+        code = uid();
+
+        await waiters_data.create_user("SIYABONGA", "mpani", "therealsiya@gmail.com", code)
 
         await waiters_data.addDays("TUESDAY","SIYABONGA")
-        let find_user = await waiters_data.clearAllData()
+        await waiters_data.clearAllData()
+
+        let addmin = await waiters_data.getAdmin()
     
-        assert.deepEqual(null, find_user)
+        assert.deepEqual([
+            { work_day: 'MONDAY', waiter: [], colour: 'enough' },
+            { work_day: 'TUESDAY', waiter: [], colour: 'enough' },
+            { work_day: 'WEDNESDAY', waiter: [], colour: 'enough' },
+            { work_day: 'THURSDAY', waiter: [], colour: 'enough' },
+            { work_day: 'FRIDAY', waiter: [], colour: 'enough' },
+            { work_day: 'SATURDAY', waiter: [], colour: 'enough' },
+            { work_day: 'SUNDAY', waiter: [], colour: 'enough' }
+          ],addmin )
     })
     
 
