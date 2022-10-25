@@ -5,8 +5,6 @@ const bodyParser = require('body-parser')
 const session = require('express-session');
 const waiters = require('./waitersDB');
 const routs = require('./routs/waters-routs')
-const { default: ShortUniqueId } = require('short-unique-id');
-const { as } = require('pg-promise');
 
 const pgp = require('pg-promise')();
 
@@ -15,7 +13,7 @@ const connectionString = process.env.DATABASE_URL || local_database_url;
 
 
 const app = express();
-const uid = new ShortUniqueId({ length: 6 });
+
 
 
 const config = {
