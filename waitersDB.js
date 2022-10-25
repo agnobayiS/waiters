@@ -14,7 +14,6 @@ module.exports = function waiters(db) {
         const surname = nameRegex.test(user_surname)
         const email = emailRegex.test(user_email)
 
-
         if (name && surname && email && code) {
             let duplicate = await checkUser(user_name)
 
@@ -55,7 +54,7 @@ module.exports = function waiters(db) {
         await db.none('delete from tablereff where NAMES_ID = $1 ', [getNameId.id])
         for (let i = 0; i < checkDays.length; i++) {
             const element = checkDays[i].toUpperCase();
-            console.log(element);
+
             let day_id = await db.one('select id from  weekdays where day = $1', [element])
             await db.none(`insert into tablereff (names_id, day_id) values($1, $2) `, [getNameId.id, day_id.id])
         }
@@ -77,23 +76,30 @@ module.exports = function waiters(db) {
         }
 
         for (const days of waiters) {
-        
+
             for (const working of data) {
 
                 if (days.work_day === working.day) {
-                
+
                     days.waiter.push(working.names)
                 }
-                
+
             }
         }
-        console.log(waiters);
 
-       
+        for (const waiter_data of waiters) {
+            if (waiter_data.waiter.length < 3) {
+                waiter_data.colour = "enough";
+            } else if (waiter_data.waiter.length === 3) {
+                waiter_data.colour = "good";
+
+            } else if (waiter_data.waiter.length > 3) {
+                waiter_data.colour = "many";
+            }
+        }
+
         return waiters
     }
-
-
 
     async function checkDays(waiter) {
         let days = await db.many('select day from weekdays')
@@ -112,7 +118,7 @@ module.exports = function waiters(db) {
             }
 
         }
-        console.log(days);
+
         return days
     }
 
@@ -123,10 +129,6 @@ module.exports = function waiters(db) {
         return clear
 
     }
-
-
-
-
 
     return {
         create_user,

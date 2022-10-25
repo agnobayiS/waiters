@@ -4,7 +4,7 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser')
 const session = require('express-session');
 const waiters = require('./waitersDB');
-const routes = require('./routs/waters-routs')
+const routs = require('./routs/waters-routs')
 const { default: ShortUniqueId } = require('short-unique-id');
 const { as } = require('pg-promise');
 
@@ -61,139 +61,21 @@ app.use(
 
 
 const waitersFF = waiters(db)
+const waiterRouts = routs(waitersFF)
 
-app.get('/', function (req, res) {
+app.get('/', waiterRouts.home);
 
-    res.render("login", {
+app.post('/login', waiterRouts.login);
 
-    })
-})
+app.post('/adduser',waiterRouts.adduser); 
 
-app.post('/login', async function (req, res) {
+app.get('/days/:name', waiterRouts.days);
 
-    let user_name = req.body.name
-    let code = req.body.code
-    let user = user_name.toUpperCase()
+app.post('/selectDays/:name',waiterRouts.selectDays);
 
+app.get('/admin',waiterRouts.admin);
 
-    let validate = await waitersFF.checkcode(code)
-    let validate2 = await waitersFF.checkUser(user)
-
-    console.log({validate,validate2 });
-    if (validate && validate2) {
-
-        req.flash('erro', 'Please enter valid details');
-        res.redirect('/')
-
-
-    } else if (!validate && !validate2) {
-
-        res.redirect(`/days/${user_name}`)
-
-    }
-});
-app.get('/adduser', function (req, res) {
-    res.render('signup')
-});
-
-app.post('/adduser', async function (req, res) {
-
-    const name = req.body.name;
-    const surname = req.body.surname;
-    const email = req.body.email;
-
-    if (name && surname && email) {
-
-        const code = uid();
-
-        await waitersFF.create_user(name, surname, email, code)
-        req.flash('info', 'Account created!!   your login code is: ' + code);
-    } else {
-        req.flash('erro', 'Please enter valid details');
-
-    }
-
-    res.render('signup')
-})
-
-// app.get('/adduser/:name', async function (req, res) {
-//     res.render('days', {
-//     })
-
-// })
-
-app.get('/days/:name', async function (req, res) {
-
-    let name = req.params.name
-   name = name.toUpperCase();
-    console.log(name + "----");
-  let days =  await waitersFF.checkDays(name)
-
-    res.render('days', {
-        name,
-        days
-    })
-})
-
-app.post('/selectDays/:name', async function (req, res) {
-
-    let checkbox = req.body.selectDays
-    let user_name = req.params.name
-    console.log(checkbox, user_name);
-    await waitersFF.addDays(checkbox, user_name)
-
-    req.flash('info', 'your days have been booked');
-
-    res.redirect('back')
-
-})
-
-
-app.get('/admin', async function (req, res) {
-
-    let data = await waitersFF.getAdmin();
-    // console.log(data);
-    res.render('admin', {
-        data
-    })
-})
-
-
-
-app.post('/addExpence/:name', async function (req, res) {
-    const amount = req.body.amount
-    const type = req.body.group1
-    console.log(type);
-    let name = req.params.name
-    if (amount && type) {
-        let user = name.toUpperCase();
-        let catergory = type.toUpperCase()
-        await dailyFF.insertExpence(user, catergory, amount)
-
-        req.flash('info', 'Your Daily Expens has been added');
-    } else {
-        req.flash('info', 'Enter your Expens and type');
-    }
-    res.redirect(`/expenses/${name}`)
-})
-
-app.get('/waiters/:username', function (req, res) {
-
-
-
-})
-
-app.get('/clear',async function (req,res){
-
-    await waitersFF.clearAllData()
-    req.flash('erro', 'All booked waters have been cleard');
-
-    res.redirect('back')
-
-})
-
-
-
+app.get('/clear',waiterRouts.deleted);
 
 const PORT = process.env.PORT || 3038;
 

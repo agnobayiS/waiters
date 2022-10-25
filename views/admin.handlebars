@@ -1,4 +1,4 @@
-<body style="background-color:#ec9e9e ;">
+<body style="background-color:#ec9e9e4b ;">
 
     <div style="padding-top:200px;"></div>
 
@@ -22,11 +22,11 @@
 
 
 
-                    <table>
+                    <table >
                         <thead>
                             <tr>
                                 {{#each data}}
-                                <th>{{work_day}}</th>
+                                <th class="{{colour}}" style="font-size:25px ;" >{{work_day}} </th>
 
                                 {{/each}}
                             </tr>
@@ -35,11 +35,12 @@
                         <tbody>
                             <tr>
                                 {{#each data}}
-
                                 <td  >
                                     <ul>
                                         {{#each this.waiter}}
-                                       <a href="/days/{{this}}" ><p style="align-content: flex-start;">{{this}}</p></a> 
+                                                                        
+
+                                       <a href="/days/{{this}}" ><p style="align-content: flex-start; font-size:x-large; ">{{this}}</p></a> 
                                         {{/each}}
                                     </ul>
 
