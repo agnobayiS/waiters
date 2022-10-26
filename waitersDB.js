@@ -88,8 +88,10 @@ module.exports = function waiters(db) {
         }
 
         for (const waiter_data of waiters) {
+
             if (waiter_data.waiter.length < 3) {
                 waiter_data.colour = "enough";
+                
             } else if (waiter_data.waiter.length === 3) {
                 waiter_data.colour = "good";
 

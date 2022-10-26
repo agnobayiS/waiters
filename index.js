@@ -76,7 +76,7 @@ app.get('/admin',waiterRouts.admin);
 
 app.get('/clear',waiterRouts.deleted);
 
-const PORT = process.env.PORT || 3038;
+const PORT = process.env.PORT || 3039;
 
 app.listen(PORT, function () {
     console.log("App started at port:", PORT)
