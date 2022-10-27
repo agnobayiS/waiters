@@ -54,9 +54,11 @@ module.exports = function waiters(db) {
         await db.none('delete from tablereff where NAMES_ID = $1 ', [getNameId.id])
         for (let i = 0; i < checkDays.length; i++) {
             const element = checkDays[i].toUpperCase();
+            
 
             let day_id = await db.one('select id from  weekdays where day = $1', [element])
             await db.none(`insert into tablereff (names_id, day_id) values($1, $2) `, [getNameId.id, day_id.id])
+            
         }
     }
 
@@ -65,14 +67,17 @@ module.exports = function waiters(db) {
         let data = await db.manyOrNone('select names, day from tablereff join waiter_names on waiter_names.id = tablereff.names_id join weekdays on weekdays.id = tablereff.day_id');
         let days = await db.manyOrNone('select day from weekdays')
         var waiters = []
-
+        
 
         for (var day of days) {
+    
             let shift = {
                 work_day: day.day,
                 waiter: []
             }
+        
             waiters.push(shift)
+            
         }
 
         for (const days of waiters) {

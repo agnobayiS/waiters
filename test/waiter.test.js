@@ -38,7 +38,7 @@ describe("waiters database test", async function () {
     it("should be able to check if the user has an account", async function () {
         let waiters_data = waiter(db)
 
-        await waiters_data.checkUser("Zola")
+    
         let find_user = await waiters_data.checkUser("zola")
     
         assert.equal(true, find_user)
@@ -53,15 +53,7 @@ describe("waiters database test", async function () {
     
         assert.equal(true, find_user)
     })
-    it("should be able to check if the usercode is not valid", async function () {
-        let waiters_data = waiter(db)
-        const uid = new ShortUniqueId({ length: 6 });
-        code = uid();
-
-        let find_user = await waiters_data.checkcode(code)
-    
-        assert.equal(true, find_user)
-    })
+   
     it("should be able to check if the usercode is valid", async function () {
         let waiters_data = waiter(db)
 

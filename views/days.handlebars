@@ -13,6 +13,12 @@
     <div style="height:30px ;  " class="massages" s>
         <p style="color:green; font-size:25px; padding-left:35%; "  class="massages">{{messages.info}}</p>
     </div>{{/if}}
+
+    {{#if messages.erro}}
+                    <div style="height:30px ;" class="massages">
+                        <p style="color:red; font-size:25px; padding-left:35%; " class="massages">{{messages.erro}}</p>
+                 </div>{{/if}}
+
     <br><br><br><br>
 
     <form action="/selectDays/{{name}}" method="post">

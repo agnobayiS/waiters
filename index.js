@@ -11,10 +11,7 @@ const pgp = require('pg-promise')();
 const local_database_url = 'postgres://siyabonga:siya@localhost:5432/waiters_app';
 const connectionString = process.env.DATABASE_URL || local_database_url;
 
-
 const app = express();
-
-
 
 const config = {
     connectionString
