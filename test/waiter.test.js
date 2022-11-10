@@ -6,7 +6,7 @@ const pgp = pgPromise({})
 
 
 
-const local_database_url = 'postgres://siyabonga:siya@localhost:5432/waiters_app';
+const local_database_url = 'postgres://siyabonga:siya@localhost:5432/waiter_tests';
 const connectionString = process.env.DATABASE_URL || local_database_url;
 
 const db = pgp(connectionString);
@@ -73,14 +73,17 @@ describe("waiters database test", async function () {
         code = uid();
 
         await waiters_data.create_user("SIYABONGA", "mpani", "therealsiya@gmail.com", code)
+        
+        await waiters_data.addDays(['MONDAY','TUESDAY','WEDNESDAY'],"SIYABONGA")
 
-        await waiters_data.addDays("TUESDAY","SIYABONGA")
+    
         let find_user = await waiters_data.getAdmin()
+        
     
         assert.deepEqual([
-            { work_day: 'MONDAY', waiter: [], colour: 'enough' },
+            { work_day: 'MONDAY', waiter: ['SIYABONGA'], colour: 'enough' },
             { work_day: 'TUESDAY', waiter: [ 'SIYABONGA' ], colour: 'enough' },
-            { work_day: 'WEDNESDAY', waiter: [], colour: 'enough' },
+            { work_day: 'WEDNESDAY', waiter: ['SIYABONGA'], colour: 'enough' },
             { work_day: 'THURSDAY', waiter: [], colour: 'enough' },
             { work_day: 'FRIDAY', waiter: [], colour: 'enough' },
             { work_day: 'SATURDAY', waiter: [], colour: 'enough' },
@@ -95,6 +98,7 @@ describe("waiters database test", async function () {
         await waiters_data.create_user("SIYABONGA", "mpani", "therealsiya@gmail.com", code)
 
         await waiters_data.addDays("TUESDAY","SIYABONGA")
+        
         await waiters_data.clearAllData()
 
         let addmin = await waiters_data.getAdmin()
